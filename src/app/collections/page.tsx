@@ -5,9 +5,11 @@ import { api } from "~/trpc/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ProductDetailsModal } from "../_components/ProductDetailsModal";
+import { MOCK_PRODUCTS } from "~/lib/mock-data";
 
 export default function CollectionsPage() {
-    const { data: products, isLoading } = api.product.getAll.useQuery({});
+    const { data: dbProducts, isLoading } = api.product.getAll.useQuery({});
+    const products = (dbProducts && dbProducts.length > 0 ? dbProducts : MOCK_PRODUCTS) as any[];
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [detailProduct, setDetailProduct] = useState<any>(null);
 

@@ -1,9 +1,11 @@
 import { HydrateClient, api } from "~/trpc/server";
 import { Navbar } from "~/app/_components/Navbar";
 import { HomeContent } from "~/app/_components/HomeContent";
+import { MOCK_PRODUCTS } from "~/lib/mock-data";
 
 export default async function Home() {
-  const products = await api.product.getAll({});
+  const dbProducts = await api.product.getAll({});
+  const products = dbProducts.length > 0 ? dbProducts : MOCK_PRODUCTS;
 
   const sidebarLeft = products.filter(p => p.sidebarSide === "LEFT");
   const sidebarRight = products.filter(p => p.sidebarSide === "RIGHT");
