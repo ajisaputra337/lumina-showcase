@@ -4,8 +4,16 @@ import { HomeContent } from "~/app/_components/HomeContent";
 import { MOCK_PRODUCTS } from "~/lib/mock-data";
 
 export default async function Home() {
-  const dbProducts = await api.product.getAll({});
-  const products = dbProducts.length > 0 ? dbProducts : MOCK_PRODUCTS;
+  let products = MOCK_PRODUCTS;
+
+  try {
+    const dbProducts = await api.product.getAll({});
+    if (dbProducts && dbProducts.length > 0) {
+      products = dbProducts as any[];
+    }
+  } catch (error) {
+    console.error("Database fetch failed, falling back to mock data:", error);
+  }
 
   const sidebarLeft = products.filter(p => p.sidebarSide === "LEFT");
   const sidebarRight = products.filter(p => p.sidebarSide === "RIGHT");
