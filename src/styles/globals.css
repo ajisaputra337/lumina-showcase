@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-snow: #ffffff;
+  --color-snow-alt: #f1f5f9;
+  --color-azure: #3b82f6;
+  --color-azure-light: #eff6ff;
+
+  --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
+  --animate-glass-shimmer: glass-shimmer 2s infinite linear;
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glass-shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-snow text-slate-900 antialiased selection:bg-azure/20;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-slate-200/50 shadow-xl;
+  }
+
+  .glass-nav {
+    @apply bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-blue-600 via-azure to-blue-400;
+  }
+
+  .btn-premium {
+    @apply relative overflow-hidden px-6 py-3 rounded-full bg-azure text-white font-semibold transition-all active:scale-95;
+
+    &:hover {
+      @apply scale-105;
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    }
+  }
+}
